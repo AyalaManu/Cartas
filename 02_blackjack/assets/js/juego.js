@@ -11,9 +11,11 @@ const miModulo = (() => {
     //referencias HTML
     const btnPedir = document.querySelector('#btnPedir'),
         btnDetener = document.querySelector('#btnDetener'),
-        btnNuevo = document.querySelector('#btnNuevo');
+        btnNuevo = document.querySelector('#btnNuevo'),
+        btnPedir2 = document.querySelector('#btnPedir2');
 
-    const divCartasJugadores = document.querySelectorAll('.divCartas'), puntosHTML = document.querySelectorAll('small');
+    const divCartasJugadores = document.querySelectorAll('.divCartas , .divCartas2'),
+        puntosHTML = document.querySelectorAll('small');
 
     const inicializarJuego = (numJugadores = 2) => {
 
@@ -143,6 +145,26 @@ const miModulo = (() => {
         }
 
     });
+
+    btnPedir2.addEventListener('click', () => {
+        const carta = pedirCarta();
+        const puntosJugador = acumularPuntos(carta, 1);
+        crearCarta(carta, 1);
+      
+        if (puntosJugador > 21) {
+          console.warn('perdiste');
+          btnPedir.disabled = true;
+          btnDetener.disabled = true;
+          btnPedir2.disabled = true;
+          turnoComputadora();
+        } else if (puntosJugador === 21) {
+          console.warn('21 genial');
+          btnPedir.disabled = true;
+          btnDetener.disabled = true;
+          btnPedir2.disabled = true;
+          turnoComputadora();
+        }
+      });
 
     btnDetener.addEventListener('click', () => {
         btnPedir.disabled = true;
