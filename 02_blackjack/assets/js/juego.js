@@ -17,7 +17,7 @@ const miModulo = (() => {
     const divCartasJugadores = document.querySelectorAll('.divCartas , .divCartas2'),
         puntosHTML = document.querySelectorAll('small');
 
-    const inicializarJuego = (numJugadores = 2) => {
+    const inicializarJuego = (numJugadores = 3) => {
 
         deck = crearDeck();
         puntosJugadores = [];
@@ -134,12 +134,14 @@ const miModulo = (() => {
         if (puntosJugador > 21) {
             console.warn('perdistes')
             btnPedir.disabled = true;
-            btnDetener.disabled = true;
+            btnDetener.disabled = false;
+            btnPedir2.disabled = false;
             turnoComputadora(puntosJugador);
 
         } else if (puntosJugador === 21) {
             btnPedir.disabled = true;
-            btnDetener.disabled = true;
+            btnDetener.disabled = false;
+            btnPedir2.disabled = false;
             console.warn('21 genial');
             turnoComputadora(puntosJugador);
         }
@@ -150,26 +152,24 @@ const miModulo = (() => {
         const carta = pedirCarta();
         const puntosJugador = acumularPuntos(carta, 1);
         crearCarta(carta, 1);
-      
+    
         if (puntosJugador > 21) {
-          console.warn('perdiste');
-          btnPedir.disabled = true;
-          btnDetener.disabled = true;
-          btnPedir2.disabled = true;
-          turnoComputadora();
+            console.warn('perdiste');
+            btnDetener.disabled = true;
+            btnPedir2.disabled = true;
+            turnoComputadora();
         } else if (puntosJugador === 21) {
-          console.warn('21 genial');
-          btnPedir.disabled = true;
-          btnDetener.disabled = true;
-          btnPedir2.disabled = true;
-          turnoComputadora();
+            console.warn('21 genial');
+            btnDetener.disabled = true;
+            btnPedir2.disabled = true;
+            turnoComputadora();
         }
-      });
+    });
 
     btnDetener.addEventListener('click', () => {
-        btnPedir.disabled = true;
-        btnDetener.disabled = true;
-        turnoComputadora(puntosJugadores);
+        btnPedir.disabled = false;
+        btnDetener.disabled = false;
+        btnPedir2.disabled = false;
     });
 
     return {
