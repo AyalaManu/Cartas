@@ -91,18 +91,21 @@ const miModulo = (() => {
 
     const determinarGanador = () => {
 
-        const [puntosMinimos, puntosComputadora] = puntosJugadores;
+        const [puntosMinimos, puntosJugadorDos, puntosComputadora] = puntosJugadores;
 
         setTimeout(() => {
 
-            if (puntosMinimos === puntosComputadora) {
+            if (puntosMinimos === puntosComputadora === puntosJugadorDos) {
                 alert('Empate');
             }
-            else if (puntosMinimos > puntosComputadora && puntosMinimos <= 21 || puntosComputadora > 21) {
+            else if (puntosMinimos > puntosComputadora && puntosMinimos <= 21 && puntosMinimos > puntosJugadorDos || puntosComputadora > 21) {
                 alert('jugador1 gano');
             }
-            else if (puntosMinimos < puntosComputadora && puntosComputadora <= 21 || puntosMinimos > 21) {
+            else if (puntosMinimos < puntosComputadora && puntosComputadora <= 21 && puntosJugadorDos < puntosComputadora || puntosMinimos > 21 && puntosJugadorDos > 21) {
                 alert('computadora gano');
+            }
+            else if(puntosJugadorDos > puntosComputadora && puntosJugadorDos <= 21 && puntosJugadorDos > puntosMinimos || puntosComputadora > 21){
+                alert('jugador2 gano');
             }
         }, 100);
     }
