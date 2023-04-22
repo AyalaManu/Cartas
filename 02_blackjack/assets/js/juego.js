@@ -8,6 +8,8 @@ const miModulo = (() => {
 
     let = puntosJugadores = [];
 
+    var bandera=false;
+
     //referencias HTML
     const btnPedir = document.querySelector('#btnPedir'),
         btnDetener = document.querySelector('#btnDetener'),
@@ -30,6 +32,7 @@ const miModulo = (() => {
         divCartasJugadores.forEach(elem => elem.innerHTML = '');
         btnDetener.disabled = false;
         btnPedir.disabled = false;
+        bandera=false;
     }
 
 
@@ -101,12 +104,13 @@ const miModulo = (() => {
             else if (puntosMinimos > puntosComputadora && puntosMinimos <= 21 && puntosMinimos > puntosJugadorDos || puntosComputadora > 21) {
                 alert('jugador1 gano');
             }
+            else if (puntosJugadorDos > puntosComputadora && puntosJugadorDos <= 21 && puntosJugadorDos > puntosMinimos || puntosComputadora > 21) {
+                alert('jugador2 gano');
+            }
             else if (puntosMinimos < puntosComputadora && puntosComputadora <= 21 && puntosJugadorDos < puntosComputadora || puntosMinimos > 21 && puntosJugadorDos > 21) {
                 alert('computadora gano');
             }
-            else if(puntosJugadorDos > puntosComputadora && puntosJugadorDos <= 21 && puntosJugadorDos > puntosMinimos || puntosComputadora > 21){
-                alert('jugador2 gano');
-            }
+
         }, 100);
     }
 
@@ -139,14 +143,14 @@ const miModulo = (() => {
             btnPedir.disabled = true;
             btnDetener.disabled = false;
             btnPedir2.disabled = false;
-            turnoComputadora(puntosJugador);
+            btnNuevo.disabled = true;
 
         } else if (puntosJugador === 21) {
             btnPedir.disabled = true;
             btnDetener.disabled = false;
             btnPedir2.disabled = false;
+            btnNuevo.disabled = true;
             console.warn('21 genial');
-            turnoComputadora(puntosJugador);
         }
 
     });
@@ -155,24 +159,30 @@ const miModulo = (() => {
         const carta = pedirCarta();
         const puntosJugador = acumularPuntos(carta, 1);
         crearCarta(carta, 1);
-    
+        bandera=true;
+        btnNuevo.disabled = true;
         if (puntosJugador > 21) {
             console.warn('perdiste');
             btnDetener.disabled = true;
             btnPedir2.disabled = true;
-            turnoComputadora();
+            turnoComputadora(puntosJugador);
         } else if (puntosJugador === 21) {
             console.warn('21 genial');
             btnDetener.disabled = true;
             btnPedir2.disabled = true;
-            turnoComputadora();
+            
+            turnoComputadora(puntosJugador);
         }
     });
 
     btnDetener.addEventListener('click', () => {
-        btnPedir.disabled = false;
+        btnPedir.disabled = true;
         btnDetener.disabled = false;
-        btnPedir2.disabled = false;
+        if(bandera==true){
+            turnoComputadora(puntosJugadores);
+        }else{
+            btnPedir2.disabled = false;
+        }
     });
 
     return {
@@ -180,10 +190,3 @@ const miModulo = (() => {
     };
 
 })();
-
-
-
-
-
-
-
