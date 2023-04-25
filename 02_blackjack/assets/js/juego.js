@@ -118,6 +118,8 @@ const miModulo = (() => {
 
     const turnoComputadora = (puntosMinimos) => {
         let puntosComputadora = 0;
+        btnDetener.disabled = true;
+        btnPedir2.disabled = true;
         do {
             const carta = pedirCarta();
             puntosComputadora = acumularPuntos(carta, puntosJugadores.length - 1);
